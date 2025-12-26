@@ -1,0 +1,16 @@
+{
+  "manifest_version": 1,
+  "name": "wait_remover",
+  "version": "1.0.0",
+  "description": "移除wait的action",
+  "author": {
+    "name": "elevenfd",
+    "url": "https://github.com/ThelevenFD"
+  },
+  "license": "MIT",
+
+  "homepage_url": "https://github.com/ThelevenFD/wait_remover",
+  "repository_url": "https://github.com/ThelevenFD/wait_remover",
+  "keywords": ["action"],
+  "categories": ["Other"]
+}
