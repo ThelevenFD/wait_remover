@@ -113,26 +113,23 @@ class Plugin(BasePlugin):
         super().__init__(**kwargs)
         self.logger = get_logger(self.plugin_name)
         
-        # 检查插件是否启用
+        # 记录插件启用状态，实际检查在 patch_planner 方法中执行
         self.enabled = self.get_config("plugin.enabled", True)
-        if not self.enabled:
-            self.logger.info("插件已禁用，不执行 patch_planner")
-            return
         
+        # 始终初始化所有属性，避免部分初始化问题
         self.is_remove = self.get_config("plugin.remove_wait_action")
         self.is_enhance = self.get_config("plugin.change_wait_action")
         
-        # 直接同步执行 Patch
-        self.patch_planner()
+        if self.enabled:
+            # 插件启用时才执行 patch_planner
+            self.patch_planner()
+        else:
+            self.logger.info("插件已禁用，跳过 patch_planner")
 
     def patch_planner(self):
         """
         直接修改 global_prompt_manager 中的缓存对象，无需 Hook 原函数
         """
-        # 检查插件是否启用
-        if not self.enabled:
-            return
-        
         if not self.is_remove and not self.is_enhance:
             return
         
