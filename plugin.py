@@ -102,7 +102,8 @@ class Plugin(BasePlugin):
     config_file_name = "config.toml"
     config_schema = {
         "plugin": {
-            "config_version": ConfigField(type=str, default="1.0.2", description="配置版本(不要修改)"),
+            "config_version": ConfigField(type=str, default="1.0.3", description="配置版本(不要修改)"),
+            "enabled": ConfigField(type=bool, default=True, description="是否启用插件"),
             "change_wait_action": ConfigField(type=bool, default=True, description="改善wait动作(推荐)"),
             "remove_wait_action": ConfigField(type=bool, default=False, description="移除私聊的wait动作"),
         }
@@ -111,11 +112,19 @@ class Plugin(BasePlugin):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.logger = get_logger(self.plugin_name)
+        
+        # 记录插件启用状态，实际检查在 patch_planner 方法中执行
+        self.enabled = self.get_config("plugin.enabled", True)
+        
+        # 始终初始化所有属性，避免部分初始化问题
         self.is_remove = self.get_config("plugin.remove_wait_action")
         self.is_enhance = self.get_config("plugin.change_wait_action")
         
-        # 直接同步执行 Patch
-        self.patch_planner()
+        if self.enabled:
+            # 插件启用时才执行 patch_planner
+            self.patch_planner()
+        else:
+            self.logger.info("插件已禁用，跳过 patch_planner")
 
     def patch_planner(self):
         """
