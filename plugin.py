@@ -24,6 +24,7 @@ ACTION_COMPLETE_TALK = textwrap.dedent("""
     - %s
     - 聊天内容显示当前聊天已经结束或者没有新内容时候，选择complete_talk
     选择此动作后，将不再继续循环思考，直到收到对方的新消息
+    - 选择wait动作超过4次，证明对方离开，选择complete_talk
     {{
         "action": "complete_talk",
         "target_message_id":"触发完成对话的消息id（通常是对方的最新消息）",
@@ -69,7 +70,7 @@ PLANNER_TEMPLATE = """
 {plan_style}
 {moderation_prompt}
 
-请选择所有符合使用要求的action，动作用json格式输出，如果输出多个json，每个json都要单独用BBBjson包裹，你可以重复使用同一个动作或不同动作:
+请选择所有符合使用要求的action，动作用json格式输出，如果输出多个json，每个json都要单独用```json包裹，你可以重复使用同一个动作或不同动作:
 **示例**
 // 理由文本
 ```json
