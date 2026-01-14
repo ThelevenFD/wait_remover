@@ -39,6 +39,7 @@ ACTION_WAIT_ENHANCED = textwrap.dedent("""
     - 你感觉对方的话还没说完，或者自己刚刚发了好几条连续消息
     - 你想要等待一定时间来让对方把话说完，或者等待对方反应
     - 你想保持安静，专注"听"而不是马上回复
+    - 最多选择3次，超过3次请使用complete_talk
     {{
         "action": "wait",
         "target_message_id":"想要作为这次等待依据的消息id（通常是对方的最新消息）",
