@@ -69,7 +69,7 @@ PLANNER_TEMPLATE = """
 {plan_style}
 {moderation_prompt}
 
-请选择所有符合使用要求的action，动作用json格式输出，如果输出多个json，每个json都要单独用BBBjson包裹，你可以重复使用同一个动作或不同动作:
+请选择所有符合使用要求的action，动作用json格式输出，如果输出多个json，每个json都要单独用```json包裹，你可以重复使用同一个动作或不同动作:
 **示例**
 // 理由文本
 ```json
